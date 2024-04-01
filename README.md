@@ -1,13 +1,15 @@
 # nextjs-github-template
 
-An unopinionated Next.js web template for deploying to GitHub Pages, utilizing atomic design.
+An unopinionated Next.js web template for deploying to GitHub Pages bundling TypeScript, ESLint, and Tailwind CSS, utilizing atomic design.
 
 ## Getting started
 
 You can recreate the repository yourself with the following steps:
 
 1. Run `npx create-next-app@latest` and push to a new repository.
+
 2. In GitHub, go to **Settings > Pages > Build and deployment > Source > GitHub Actions** and generate `nextjs.yml` by clicking on the Next.js workflow.
+
 3. Replace your `nextConfig` with the following. This is not required for deployment since `nextjs.yml` handles static export for us, but it's useful because now you can use `yarn build` to test if static export works before pushing to GitHub.
 
    ```ts
