@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# nextjs-github-template
 
-## Getting Started
+An unopinionated Next.js web template for deploying to GitHub Pages, utilizing atomic design.
 
-First, run the development server:
+## Getting started
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+You can recreate the repository yourself with the following steps:
+
+1. Run `npx create-next-app@latest` and push to a new repository.
+2. In GitHub, go to **Settings > Pages > Build and deployment > Source > GitHub Actions** and generate `nextjs.yml` by clicking on the Next.js workflow.
+3. Replace your `nextConfig` with the following. This is not required for deployment since `nextjs.yml` handles static export for us, but it's useful because now you can use `yarn build` to test if static export works before pushing to GitHub.
+
+   ```ts
+   const nextConfig = {
+     output: "export",
+   };
+   ```
+
+4. Replace `yarn start` in `package.json` with `npx serve@latest out` to deploy the static files locally.
+
+## Notes
+
+By default, the site is available at the `https://<username>.github.io/nextjs-github-template` subdomain. Images will not load since they do not take the `nextjs-github-template` base path into account. To resolve this for all possible base paths, import the image directly.
+
+```ts
+import Image from "next/image";
+import vercel_svg from "../../public/vercel.svg";
+
+<Image
+  src={vercel_svg} // instead of src="/vercel.svg"
+  alt="Vercel Logo"
+  className="dark:invert"
+  width={100}
+  height={24}
+  priority
+/>;
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Dynamic routes are only somewhat supported in the Next.js app router with static export. You must generate a list of valid static parameters, and your component must be a server component (not a client component). For example, create `src/app/[userid]/page.tsx` and paste in the following:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```ts
+import React from "react";
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+interface ProfilePageParams {
+  params: { userid: string };
+}
 
-## Learn More
+/** Return a list of `params` to populate the [slug] dynamic segment */
+export const generateStaticParams = async () => {
+  return [{ userid: "asdf" }];
+};
 
-To learn more about Next.js, take a look at the following resources:
+const ProfilePage = ({ params }: ProfilePageParams) => {
+  const userid = params.userid as string;
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  return <p>Hello {userid}.</p>;
+};
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+export default ProfilePage;
+```
 
-## Deploy on Vercel
+## Useful links
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- https://github.com/gregrickaby/nextjs-github-pages
+- https://nextjs.org/docs/pages/building-your-application/deploying/static-exports
