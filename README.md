@@ -28,7 +28,7 @@ You can recreate the repository yourself with the following steps:
 
 4. Replace `yarn start` in `package.json` with `npx serve@latest out` to deploy the static files locally.
 
-5. In GitHub, go to **Settings > Pages > Build and deployment > Source > GitHub Actions** and generate `nextjs.yml` by clicking on the Next.js workflow. Note: if you are using `yarn v2` or later, you must edit the YAML file and delete the following line. This is because the latest version of the `yarn` npm package is v1 while the yarn version specified in `package.json` is higher.
+5. In GitHub, go to **Settings > Pages > Build and deployment > Source > GitHub Actions** and generate `nextjs.yml` by clicking on the Next.js workflow. Note: if you are using `yarn v2` or later, you must edit the YAML file and delete the following lines. This is because the latest version of the `yarn` npm package is v1 while the yarn version specified in `package.json` is higher.
 
    ```bash
    if [ -f "${{ github.workspace }}/yarn.lock" ]; then
