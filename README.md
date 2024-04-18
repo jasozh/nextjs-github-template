@@ -8,7 +8,17 @@ You can recreate the repository yourself with the following steps:
 
 1. Run `npx create-next-app@latest` and push to a new repository.
 
-2. Replace your `nextConfig` with the following. This is not required for deployment since `nextjs.yml` handles static export for us, but it's useful because now you can use `yarn build` to test if static export works before pushing to GitHub.
+2. Install yarn and add `.yarn` to your `.gitignore` file:
+
+   ```bash
+   # Enable corepack if not already enabled
+   corepack enable
+
+   # Install latest version of yarn
+   yarn set version stable
+   ```
+
+3. Replace your `nextConfig` with the following. This is not required for deployment since `nextjs.yml` handles static export for us, but it's useful because now you can use `yarn build` to test if static export works before pushing to GitHub.
 
    ```ts
    const nextConfig = {
@@ -16,9 +26,17 @@ You can recreate the repository yourself with the following steps:
    };
    ```
 
-3. Replace `yarn start` in `package.json` with `npx serve@latest out` to deploy the static files locally.
+4. Replace `yarn start` in `package.json` with `npx serve@latest out` to deploy the static files locally.
 
-4. In GitHub, go to **Settings > Pages > Build and deployment > Source > GitHub Actions** and generate `nextjs.yml` by clicking on the Next.js workflow.
+5. In GitHub, go to **Settings > Pages > Build and deployment > Source > GitHub Actions** and generate `nextjs.yml` by clicking on the Next.js workflow. Note: if you are using `yarn v2` or later, you must edit the YAML file and delete the following line. This is because the latest version of the `yarn` npm package is v1 while the yarn version specified in `package.json` is higher.
+
+   ```bash
+   if [ -f "${{ github.workspace }}/yarn.lock" ]; then
+       echo "manager=yarn" >> $GITHUB_OUTPUT
+       echo "command=install" >> $GITHUB_OUTPUT
+       echo "runner=yarn" >> $GITHUB_OUTPUT
+       exit 0
+   ```
 
 ## Notes
 
