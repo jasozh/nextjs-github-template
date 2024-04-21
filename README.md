@@ -30,6 +30,7 @@ You can recreate the repository yourself with the following steps:
 
    ```bash
    yarn add --dev \
+       prettier \
        prettier-plugin-classnames \
        prettier-plugin-jsdoc \
        prettier-plugin-merge \
