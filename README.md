@@ -26,7 +26,32 @@ You can recreate the repository yourself with the following steps:
    nodeLinker: node-modules
    ```
 
-5. Replace your `nextConfig` with the following. This is not required for deployment since `nextjs.yml` handles static export for us, but it's useful because now you can use `yarn build` to test if static export works before pushing to GitHub.
+5. Install dependencies:
+
+   ```bash
+   yarn add --dev \
+       prettier-plugin-classnames \
+       prettier-plugin-jsdoc \
+       prettier-plugin-merge \
+       prettier-plugin-tailwindcss
+   ```
+
+6. Create `.prettierrc` and paste in the following. Then, run `npx prettier --write .` to standardize formatting and indentation across all files.
+
+   ```json
+   {
+     "trailingComma": "es5",
+     "plugins": [
+       "prettier-plugin-classnames",
+       "prettier-plugin-jsdoc",
+       "prettier-plugin-tailwindcss",
+       "prettier-plugin-merge"
+     ],
+     "endingPosition": "absolute-with-indent"
+   }
+   ```
+
+7. Replace your `nextConfig` with the following. This is not required for deployment since `nextjs.yml` handles static export for us, but it's useful because now you can use `yarn build` to test if static export works before pushing to GitHub.
 
    ```ts
    const nextConfig = {
@@ -34,9 +59,9 @@ You can recreate the repository yourself with the following steps:
    };
    ```
 
-6. Replace `yarn start` in `package.json` with `npx serve@latest out` to deploy the static files locally.
+8. Replace `yarn start` in `package.json` with `npx serve@latest out` to deploy the static files locally.
 
-7. In GitHub, go to **Settings > Pages > Build and deployment > Source > GitHub Actions** and generate `nextjs.yml` by clicking on the Next.js workflow. Note: if you are using `yarn v2` or later, you must edit the YAML file and delete the following lines. This is because the latest version of the `yarn` npm package is v1 while the yarn version specified in `package.json` is higher. You also need to change `npm ci` to `npm install` since `npm ci` requires a `package-lock.json` which does not exist.
+9. In GitHub, go to **Settings > Pages > Build and deployment > Source > GitHub Actions** and generate `nextjs.yml` by clicking on the Next.js workflow. Note: if you are using yarn v2 or later, you must edit the YAML file and delete the following lines. This is because the latest version of the `yarn` npm package is v1 while the yarn version specified in `package.json` is higher. You also need to change `npm ci` to `npm install` since `npm ci` requires a `package-lock.json` which does not exist.
 
    ```bash
    if [ -f "${{ github.workspace }}/yarn.lock" ]; then
