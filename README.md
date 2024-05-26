@@ -6,63 +6,63 @@ An unopinionated Next.js web template for deploying to GitHub Pages bundling Typ
 
 You can recreate the repository yourself with the following steps:
 
-1. Run `npx create-next-app@latest` and push to a new repository.
+1.  Run `npx create-next-app@latest` and push to a new repository.
 
-2. Install yarn:
+2.  Install yarn:
 
-   ```bash
-   # Enable corepack if not already enabled
-   corepack enable
+    ```bash
+    # Enable corepack if not already enabled
+    corepack enable
 
-   # Install latest version of yarn
-   yarn set version stable
-   ```
+    # Install latest version of yarn
+    yarn set version stable
+    ```
 
-3. Add `.yarn` to your `.gitignore` file.
+3.  Add `.yarn` to your `.gitignore` file.
 
-4. Create `.yarnrc.yml` and paste in the following to disable plug-and-play mode:
+4.  Create `.yarnrc.yml` and paste in the following to disable plug-and-play mode:
 
-   ```yaml
-   nodeLinker: node-modules
-   ```
+    ```yaml
+    nodeLinker: node-modules
+    ```
 
-5. Install dependencies:
+5.  Install dependencies:
 
-   ```bash
-   yarn add --dev \
-       prettier \
-       prettier-plugin-classnames \
-       prettier-plugin-jsdoc \
-       prettier-plugin-merge \
-       prettier-plugin-tailwindcss
-   ```
+    ```bash
+    yarn add --dev \
+        prettier \
+        prettier-plugin-classnames \
+        prettier-plugin-jsdoc \
+        prettier-plugin-merge \
+        prettier-plugin-tailwindcss
+    ```
 
-6. Create `.prettierrc` and paste in the following:
+6.  Create `.prettierrc` and paste in the following:
 
-   ```json
-   {
-     "trailingComma": "es5",
-     "plugins": [
-       "prettier-plugin-classnames",
-       "prettier-plugin-jsdoc",
-       "prettier-plugin-tailwindcss",
-       "prettier-plugin-merge"
-     ],
-     "endingPosition": "absolute-with-indent"
-   }
-   ```
+    ```json
+    {
+      "trailingComma": "es5",
+      "plugins": [
+        "prettier-plugin-classnames",
+        "prettier-plugin-jsdoc",
+        "prettier-plugin-tailwindcss",
+        "prettier-plugin-merge"
+      ],
+      "endingPosition": "absolute-with-indent"
+    }
+    ```
 
-7. Run `npx prettier --write .` to standardize formatting and indentation across all files.
+7.  Run `npx prettier --write .` to standardize formatting and indentation across all files.
 
-8. Replace your `nextConfig` with the following. This is not required for deployment since `nextjs.yml` handles static export for us, but it's useful because now you can use `yarn build` to test if static export works before pushing to GitHub.
+8.  Replace your `nextConfig` with the following. This is not required for deployment since `nextjs.yml` handles static export for us, but it's useful because now you can use `yarn build` to test if static export works before pushing to GitHub.
 
-   ```ts
-   const nextConfig = {
-     output: "export",
-   };
-   ```
+    ```ts
+    const nextConfig = {
+      output: "export",
+    };
+    ```
 
-9. Replace `yarn start` in `package.json` with `npx serve@latest out` to deploy the static files locally.
+9.  Replace `yarn start` in `package.json` with `npx serve@latest out` to deploy the static files locally.
 
 10. In GitHub, go to **Settings > Pages > Build and deployment > Source > GitHub Actions** and generate `nextjs.yml` by clicking on the Next.js workflow. Note: if you are using yarn v2 or later, you must edit the YAML file and delete the following lines. This is because the latest version of the `yarn` npm package is v1 while the yarn version specified in `package.json` is higher. You also need to change `npm ci` to `npm install` since `npm ci` requires a `package-lock.json` which does not exist.
 
