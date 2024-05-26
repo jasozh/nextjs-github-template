@@ -126,6 +126,7 @@ The repository is configured with automatic daily updates using Dependabot and a
 
 The following GitHub settings are enabled:
 
+- **General > Allow auto-merge**
 - **Branches > Branch protection > Require status checks to pass before merging (pull_request_build)**
 
 ## Useful links
