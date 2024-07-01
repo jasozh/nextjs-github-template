@@ -722,11 +722,9 @@ __metadata:
   linkType: hard
 
 "axobject-query@npm:^3.2.1":
-  version: 3.2.1
-  resolution: "axobject-query@npm:3.2.1"
-  dependencies:
-    dequal: "npm:^2.0.3"
-  checksum: 10c0/f7debc2012e456139b57d888c223f6d3cb4b61eb104164a85e3d346273dd6ef0bc9a04b6660ca9407704a14a8e05fa6b6eb9d55f44f348c7210de7ffb350c3a7
+  version: 3.2.3
+  resolution: "axobject-query@npm:3.2.3"
+  checksum: 10c0/18d23f6a3846add714a76caca08c0ded36c32fd7733aaaa7f3a604530e08b0b477892b89ed6ee64e7000dcd6d663bc84d8915c4131058907f94c9e7e5c33d38f
   languageName: node
   linkType: hard
 
